@@ -3,7 +3,9 @@
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 
-export default function HomePage() {
+export default function AuthGuard({
+  children,
+}) {
 
   const router = useRouter()
 
@@ -12,11 +14,7 @@ export default function HomePage() {
     const token =
       localStorage.getItem("token")
 
-    if (token) {
-
-      router.push("/dashboard")
-
-    } else {
+    if (!token) {
 
       router.push("/login")
 
@@ -24,6 +22,6 @@ export default function HomePage() {
 
   }, [router])
 
-  return null
+  return children
 
 }
